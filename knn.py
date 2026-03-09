@@ -5,7 +5,7 @@ from sklearn.neighbors import KNeighborsClassifier
 data = pd.read_csv("india_ev_charging_stations.csv")
 
 # features (latitude and longitude)
-X = data[['latitude','longitude']]
+X = data[['lattitude','longitude']]
 
 # labels (station name)
 y = data['name']
@@ -14,8 +14,8 @@ y = data['name']
 knn = KNeighborsClassifier(n_neighbors=3)
 knn.fit(X,y)
 
-def recommend_station(latitude, longitude):
+def recommend_station(lattitude, longitude):
 
-    prediction = knn.predict([[latitude, longitude]])
+    prediction = knn.predict([[lattitude, longitude]])
 
     return prediction[0]
