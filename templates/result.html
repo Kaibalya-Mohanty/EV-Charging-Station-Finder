@@ -111,6 +111,7 @@
             <div class="stat-val">{{ battery }}%</div>
             <div class="stat-label">Battery</div>
         </div>
+        
         <div class="stat">
             <div class="stat-val">{{ max_range }} km</div>
             <div class="stat-label">Safe Range</div>
@@ -119,6 +120,11 @@
             <div class="stat-val">{{ stations|length }}</div>
             <div class="stat-label">Stations Found</div>
         </div>
+    </div>
+    <!-- AI RECOMMENDATION -->
+    <div class="route-box">
+         <h3>🤖 AI Recommended Charging Station</h3>
+        <p><b>{{ ai_station }}</b></p>
     </div>
 
     <!-- ROUTE BOX -->
