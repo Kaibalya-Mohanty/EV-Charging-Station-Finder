@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 
 # load dataset
-data = pd.read_csv("stations.csv")
+data = pd.read_csv("india_ev_charging_stations.csv")
 
 # features (latitude and longitude)
 X = data[['latitude','longitude']]
