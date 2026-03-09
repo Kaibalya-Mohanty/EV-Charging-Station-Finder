@@ -9,6 +9,7 @@ Original file is located at
 
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 import pandas as pd
+from knn import recommend_station
 import json
 import math
 import os
@@ -169,6 +170,15 @@ def dashboard():
 
     return render_template("index.html", username=session['username'])
 
+@app.route("/recommend")
+def recommend():
+
+    latitude = 28.45
+    longitude = 77.02
+
+    result = recommend_station(latitude, longitude)
+
+    return f"Recommended station: {result}"
 
 # ==============================
 # MAIN EV SEARCH ROUTE
