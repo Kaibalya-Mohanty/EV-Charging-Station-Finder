@@ -4,10 +4,13 @@ from sklearn.neighbors import KNeighborsClassifier
 # load dataset
 data = pd.read_csv("india_ev_charging_stations.csv")
 
-# features (latitude and longitude)
+# remove rows with missing coordinates
+data = data.dropna(subset=['lattitude','longitude'])
+
+# features
 X = data[['lattitude','longitude']]
 
-# labels (station name)
+# labels
 y = data['name']
 
 # train model
