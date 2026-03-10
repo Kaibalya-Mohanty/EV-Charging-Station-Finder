@@ -224,7 +224,13 @@ def result():
 
         nearby_stations.sort(key=lambda x: x['distance'])
         #AI recommendation using KNN
-        ai_stations = recommend_station(user_lat, user_lon)
+        try:
+             ai_stations = recommend_station(user_lat, user_lon)
+        except  Exception as e:
+            print("KNN ERROR:", e)
+            ai_stations = []
+       
+        
 
         return render_template(
             "result.html",
