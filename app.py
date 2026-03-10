@@ -224,7 +224,7 @@ def result():
 
         nearby_stations.sort(key=lambda x: x['distance'])
         #AI recommendation using KNN
-        ai_station = recommend_station(user_lat, user_lon)
+        ai_stations = recommend_station(user_lat, user_lon)
 
         return render_template(
             "result.html",
@@ -236,7 +236,7 @@ def result():
             username=session['username'],
             u_lat=user_lat,
             u_lon=user_lon,
-            ai_station=ai_station
+            ai_stations=ai_station
         )
 
     except Exception as e:
