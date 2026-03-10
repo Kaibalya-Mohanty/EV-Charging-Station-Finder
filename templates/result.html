@@ -182,6 +182,7 @@
 
 // INIT MAP
 const map = L.map('map').setView([{{ u_lat }}, {{ u_lon }}], 11);
+const aiStations = {{ ai_stations|tojson }};
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom:19
@@ -211,6 +212,20 @@ L.circleMarker([{{ s.lat }}, {{ s.lon }}], {
 }).addTo(map)
 .bindPopup("<b>{{ s.name }}</b><br>{{ s.distance }} km away");
 {% endfor %}
+
+aiStations.forEach(s => {
+
+    L.circleMarker([s.lat, s.lon], {
+        radius:10,
+        fillColor:"#FFD700",
+        color:"#000",
+        weight:3,
+        fillOpacity:1
+    })
+    .addTo(map)
+    .bindPopup("⭐ AI Recommended<br><b>" + s.name + "</b>");
+
+});
 
 // AUTOCOMPLETE
 function setupAutocomplete(inputId, listId) {
