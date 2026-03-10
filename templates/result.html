@@ -83,6 +83,10 @@
             box-shadow:0 4px 12px rgba(0,0,0,0.05);
             border-left:5px solid #10b981;
         }
+        .station-card.gold {
+            border-left:5px solid #FFD700;
+            box-shadow:0 0 12px rgba(255,215,0,0.6);
+        }
 
         .btn-nav {
             display:inline-block;
@@ -162,8 +166,14 @@
     <!-- STATIONS -->
     <div class="stations-grid">
         {% for s in stations %}
-        <div class="station-card">
+        <div class="station-card {% if loop.index <= 3 %}gold{% endif %}">
+
             <h3>{{ s.name }}</h3>
+
+            {% if loop.index <= 3 %}
+            <span style="color:#FFD700;font-weight:bold;">⭐ Recommended</span>
+            {% endif %}
+
             <p>{{ s.address }}</p>
             <p><b>{{ s.distance }} km away</b></p>
             <a href="https://www.google.com/maps/dir/?api=1&destination={{ s.lat }},{{ s.lon }}"
