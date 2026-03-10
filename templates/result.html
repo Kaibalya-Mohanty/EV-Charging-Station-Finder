@@ -192,7 +192,7 @@
 
 // INIT MAP
 const map = L.map('map').setView([{{ u_lat }}, {{ u_lon }}], 11);
-const aiStations = {{ ai_stations|tojson }};
+const aiStations = {{ ai_stations | default([]) | tojson }};
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom:19
@@ -213,7 +213,10 @@ L.circle([{{ u_lat }}, {{ u_lon }}], {
 
 // STATION MARKERS
 {% for s in stations %}
-if (!aiStations.some(a => a.lat == {{ s.lat }} && a.lon == {{ s.lon }})) {
+if (!aiStations.some(a =>
+    Math.abs(a.lat - {{ s.lat }}) < 0.0001 &&
+    Math.abs(a.lon - {{ s.lon }}) < 0.0001
+)) {
 
     L.circleMarker([{{ s.lat }}, {{ s.lon }}], {
         radius:8,
