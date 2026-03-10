@@ -1,24 +1,51 @@
 import pandas as pd
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neighbors import NearestNeighbors
+
+# ==========================
+# LOAD DATASET
+# ==========================
 
 data = pd.read_csv("india_ev_charging_stations.csv")
 
-# FIX BAD DATA
+# Clean column names
+data.columns = data.columns.str.strip()
+
+# Convert coordinates to numbers
 data['lattitude'] = pd.to_numeric(data['lattitude'], errors='coerce')
 data['longitude'] = pd.to_numeric(data['longitude'], errors='coerce')
 
-# remove invalid rows
-data = data.dropna()
+# Remove invalid rows
+data = data.dropna(subset=['lattitude','longitude'])
 
-# features
+# ==========================
+# FEATURES
+# ==========================
+
 X = data[['lattitude','longitude']]
 
-# labels
-y = data['name']
+# ==========================
+# TRAIN MODEL
+# ==========================
 
-knn = KNeighborsClassifier(n_neighbors=3)
-knn.fit(X, y)
+knn = NearestNeighbors(n_neighbors=3)
 
-def recommend_station(lat, lon):
-    prediction = knn.predict([[lat, lon]])
-    return prediction[0]
+knn.fit(X)
+
+# ==========================
+# RECOMMENDATION FUNCTION
+# ==========================
+
+def recommend_station(user_lat, user_lon):
+
+    distances, indices = knn.kneighbors([[user_lat, user_lon]])
+
+    stations = []
+
+    for i in indices[0]:
+        stations.append({
+            "name": data.iloc[i]['name'],
+            "lat": data.iloc[i]['lattitude'],
+            "lon": data.iloc[i]['longitude']
+        })
+
+    return stations
