@@ -242,7 +242,7 @@ def result():
             username=session['username'],
             u_lat=user_lat,
             u_lon=user_lon,
-            ai_stations=ai_station
+            ai_stations=ai_stations
         )
 
     except Exception as e:
