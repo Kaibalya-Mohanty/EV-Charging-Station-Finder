@@ -203,14 +203,19 @@ L.circle([{{ u_lat }}, {{ u_lon }}], {
 
 // STATION MARKERS
 {% for s in stations %}
-L.circleMarker([{{ s.lat }}, {{ s.lon }}], {
-    radius:8,
-    fillColor:"#3b82f6",
-    color:"#fff",
-    weight:2,
-    fillOpacity:1
-}).addTo(map)
-.bindPopup("<b>{{ s.name }}</b><br>{{ s.distance }} km away");
+if (!aiStations.some(a => a.lat == {{ s.lat }} && a.lon == {{ s.lon }})) {
+
+    L.circleMarker([{{ s.lat }}, {{ s.lon }}], {
+        radius:8,
+        fillColor:"#3b82f6",
+        color:"#fff",
+        weight:2,
+        fillOpacity:1
+    })
+    .addTo(map)
+    .bindPopup("<b>{{ s.name }}</b><br>{{ s.distance }} km away");
+
+}
 {% endfor %}
 
 aiStations.forEach(s => {
