@@ -246,8 +246,7 @@ def result():
         )
 
     except Exception as e:
-        flash(f"Error: {str(e)}", "error")
-        return redirect(url_for('dashboard'))
+    return str(e)
 
 
 # ==============================
