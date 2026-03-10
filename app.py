@@ -246,7 +246,8 @@ def result():
         )
 
     except Exception as e:
-    return str(e)
+        return str(e)
+        
 
 
 # ==============================
