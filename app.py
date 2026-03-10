@@ -63,6 +63,8 @@ if os.path.exists(csv_file):
     try:
         df = pd.read_csv(csv_file)
         df.columns = df.columns.str.strip()
+        # Remove duplicate charging stations
+        df = df.drop_duplicates(subset=['name','lattitude','longitude'])
         print(f"✅ Loaded {len(df)} EV Stations")
     except Exception as e:
         print("CSV Load Error:", e)
