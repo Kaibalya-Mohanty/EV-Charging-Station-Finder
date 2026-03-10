@@ -121,11 +121,16 @@
             <div class="stat-label">Stations Found</div>
         </div>
     </div>
+    
     <!-- AI RECOMMENDATION -->
-    <div class="route-box">
-         <h3>🤖 AI Recommended Charging Station</h3>
-        <p><b>{{ ai_station }}</b></p>
-    </div>
+<div class="route-box">
+    <h3>🤖 AI Recommended Charging Stations</h3>
+
+    {% for s in ai_stations %}
+        <p>⚡ {{ s.name }}</p>
+    {% endfor %}
+
+</div>
 
     <!-- ROUTE BOX -->
     <div class="route-box">
