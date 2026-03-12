@@ -328,9 +328,23 @@ def result():
         except:
             continue
     if len(nearby_stations) == 0:
-        nearby_stations = df.head(50).to_dict('records')
+        nearby_stations = []
+
+       for _, row in df.head(50).iterrows():
+            nearby_stations.append({
+                "name": row.get("name", "EV Station"),
+                "lat": float(row.get("lat") or row.get("latitude") or row.get("Latitude") or 0),
+                "lon": float(row.get("lon") or row.get("longitude") or row.get("Longitude") or 0),
+                "distance": 0,
+                "demand_score": 50,
+                "cluster_color": "#10b981",
+                "cluster_id": -1,
+                "address": row.get("address", ""),
+                "city": row.get("city", ""),
+                "state": row.get("state", "")
+            })
     else:
-        nearby_stations.sort(key=lambda x:(x['distance'],-x['demand_score']))
+        nearby_stations.sort(key=lambda x:(x.get('distance',0),-x.get('demand_score',0))
 
 
     # =========================
