@@ -137,25 +137,25 @@
 </div>
 
     <!-- ROUTE BOX -->
-    <div class="route-box">
+   <div class="route-box">
         <h3>Plan Route</h3>
         <br>
 
         <div style="position:relative; display:inline-block; width:45%;">
-            <input id="source" type="text" placeholder="Enter Source"
+            <input id="source" name="start" type="text" placeholder="Enter Source"
                    style="padding:8px;width:100%;border-radius:8px;border:1px solid #ccc;">
             <div id="source-list" class="autocomplete-list"></div>
         </div>
 
         <div style="position:relative; display:inline-block; width:45%; margin-left:10px;">
-            <input id="destination" type="text" placeholder="Enter Destination"
+            <input id="destination" name="end" type="text" placeholder="Enter Destination"
                    style="padding:8px;width:100%;border-radius:8px;border:1px solid #ccc;">
             <div id="destination-list" class="autocomplete-list"></div>
         </div>
 
         <br><br>
 
-        <button onclick="getRoute()"
+        <button type="button" onclick="getRoute()"
                 style="padding:10px 15px;border:none;background:#10b981;color:white;border-radius:8px;cursor:pointer;">
             Find Route
         </button>
