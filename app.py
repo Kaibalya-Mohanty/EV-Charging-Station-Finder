@@ -344,7 +344,7 @@ def result():
                 "state": row.get("state", "")
             })
     else:
-        nearby_stations.sort(key=lambda x:(x.get('distance',0),-x.get('demand_score',0))
+        nearby_stations.sort(key=lambda x:(x.get('distance',0),-x.get('demand_score',0)))
 
 
     # =========================
