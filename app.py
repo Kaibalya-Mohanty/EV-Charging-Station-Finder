@@ -298,7 +298,7 @@ def result():
     max_range=safe_battery*2.5
 
     nearby_stations=[]
-    nearby_stations = df.head(50).to_dict('records')   # TEMP TEST
+   
     for _,row in df.iterrows():
 
         try:
@@ -327,6 +327,10 @@ def result():
 
         except:
             continue
+    if len(nearby_stations) == 0:
+        nearby_stations = df.head(50).to_dict('records')
+    else:
+        nearby_stations.sort(key=lambda x:(x['distance'],-x['demand_score']))
 
 
     # =========================
