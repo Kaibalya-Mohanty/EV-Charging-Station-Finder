@@ -290,15 +290,15 @@ def result():
     if 'user_id' not in session:
         return redirect(url_for('login'))
 
-    user_lat=float(request.form['latitude'])
-    user_lon=float(request.form['longitude'])
+    user_lat = float(request.form.get("lat"))
+    user_lon = float(request.form.get("lon"))
     battery=float(request.form.get('battery_percent',50))
 
     safe_battery=max(0,battery-5)
     max_range=safe_battery*2.5
 
     nearby_stations=[]
-
+    nearby_stations = df.head(50).to_dict('records')   # TEMP TEST
     for _,row in df.iterrows():
 
         try:
