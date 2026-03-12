@@ -330,7 +330,7 @@ def result():
     if len(nearby_stations) == 0:
         nearby_stations = []
 
-       for _, row in df.head(50).iterrows():
+        for _, row in df.head(50).iterrows():
             nearby_stations.append({
                 "name": row.get("name", "EV Station"),
                 "lat": float(row.get("lat") or row.get("latitude") or row.get("Latitude") or 0),
