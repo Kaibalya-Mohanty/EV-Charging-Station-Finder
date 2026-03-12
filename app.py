@@ -7,7 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1h8IxbYjnCMmy5zOS_Axs6BEZ9lFcAz1G
 """
 
-from flask import Flask, render_template, request, session, redirect, url_for, flash
+from flask import Flask, render_template, request, session, redirect, url_for, flash, jsonify
 import pandas as pd
 from knn import recommend_station
 import json
@@ -57,7 +57,8 @@ init_db()
 # LOAD CSV DATA
 # ==============================
 
-csv_file = "india_ev_charging_stations.csv"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+csv_file = os.path.join(BASE_DIR, "india_ev_charging_stations.csv")
 
 if os.path.exists(csv_file):
     try:
@@ -249,7 +250,41 @@ def result():
 
     except Exception as e:
         return str(e)
-        
+
+# ==============================
+# ROUTE PLANNER
+# ==============================
+
+@app.route('/plan_route', methods=['POST'])
+def plan_route():
+    try:
+        start = request.form.get("start")
+        end = request.form.get("end")
+
+        if not start or not end:
+            return "Missing start or destination"
+
+        # For now we simulate route planning using nearby stations
+        stations = []
+
+        for _, row in df.head(10).iterrows():
+            try:
+                stations.append({
+                    "name": row.get("name", "EV Station"),
+                    "lat": float(row["lattitude"]),
+                    "lon": float(row["longitude"])
+                })
+            except:
+                continue
+
+        return jsonify({
+            "start": start,
+            "end": end,
+            "stations": stations
+        })
+
+    except Exception as e:
+        return str(e)
 
 
 # ==============================
