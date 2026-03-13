@@ -276,7 +276,7 @@ def result():
 
         # AI recommendation
         try:
-            ai_stations = recommend_station(user_lat, user_lon)
+            ai_stations = recommend_station(user_lat, user_lon) or []
         except Exception as e:
             print("KNN ERROR:", e)
             ai_stations = []
@@ -284,7 +284,7 @@ def result():
         return render_template(
             "result.html",
             stations=nearby_stations,
-            stations_json=json.dumps(nearby_stations),
+            ai_stations_json=json.dumps(ai_stations),
             count=len(nearby_stations),
             battery=int(battery),
             max_range=round(max_range, 1),
